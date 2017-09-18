@@ -80,20 +80,35 @@ def delete_images():
 
 
 if __name__ == '__main__':
-    if sys.argv[1] == "save":
-        if sys.argv[2]:
-            save_images(sys.argv[2])
+    try:
+        if sys.argv[1] == "save":
+            try:
+                save_images(sys.argv[2])
+            except IndexError, e:
+                print "save in the current file"
+                save_images()
+    except IndexError, e:
+        print "options not supplied!\n"
+        print "please retry by : ./image_auto save [dire]"
+        sys.exit()
+    try:
+        if sys.argv[1] == "load":
+            try:
+                load_images(sys.argv[2])
+            except IndexError, e:
+                load_images()
+    except IndexError, e:
+        print "options not supplied!\n"
+        print "please retry by : ./image_auto load [dire]"
+        sys.exit()
+    try:
+        if sys.argv[1] == "delete":
+            delete_images()
         else:
-            save_images()
-    elif sys.argv[1] == "load":
-        if sys.argv[2]:
-            load_images(sys.argv[2])
-        else:
-            load_images()
-    elif sys.argv[1] == "delete":
-        delete_images()
-    else:
-        print "options not suported"
+            print "options not suported"
+            sys.exit()
+    except IndexError, e:
+        print
         sys.exit()
 
 
