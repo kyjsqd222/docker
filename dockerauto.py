@@ -5,7 +5,7 @@
 import docker
 import os
 
-client = docker.DockerClient()
+client = docker.DockerClient(base_url='unix://var/run/docker.sock', version='auto', timeout=10)
 
 
 # save all docker images on the server
