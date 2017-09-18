@@ -21,7 +21,7 @@ def save_images(dire=None):
         tar_name = im.encode("utf-8").split("/")[-1].split(":")[0]
         image = client.images.get(im)
         resp = client.images.model.save(image)
-        f = open('%s%s.tar'%(dire,tar_name),'wb')
+        f = open('%s%s.tar'%(dire,tar_name),'w')
         for chunk in resp.stream():
             f.write(chunk)
         f.close()
