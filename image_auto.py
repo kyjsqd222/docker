@@ -106,6 +106,7 @@ if __name__ == '__main__':
             print "options not suported"
             sys.exit()
     except IndexError, e:
+        print "options not supplied!"
         sys.exit()
 
 
