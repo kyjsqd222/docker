@@ -5,9 +5,9 @@
 import docker
 import os
 
+client = docker.DockerClient()
 # save all docker images on the server
 def save_images(dire=None):
-    client = docker.DockerClient()
     if not dire:
         dire = "/home/my_images/"
     try:
@@ -29,7 +29,6 @@ def save_images(dire=None):
 
 # load all docker images on the directions
 def load_images(dire=None):
-    client = docker.from_env()
     if not dire:
         dire="./"
     if not dire.endswith('/'):
@@ -43,7 +42,6 @@ def load_images(dire=None):
 
 # delete all images on the server
 def delete_images():
-    client = docker.from_env()
     for ima in client.images.list():
         ima_id = ima.short_id.encode('utf-8').split(':')[-1]
         client.images.remove(ima_id)
