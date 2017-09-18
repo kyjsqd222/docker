@@ -88,7 +88,6 @@ if __name__ == '__main__':
                 print "save in the current file"
                 save_images()
     except IndexError, e:
-        print "options not supplied!\n"
         print "please retry by : ./image_auto save [dire]"
         sys.exit()
     try:
@@ -98,7 +97,6 @@ if __name__ == '__main__':
             except IndexError, e:
                 load_images()
     except IndexError, e:
-        print "options not supplied!\n"
         print "please retry by : ./image_auto load [dire]"
         sys.exit()
     try:
@@ -108,7 +106,6 @@ if __name__ == '__main__':
             print "options not suported"
             sys.exit()
     except IndexError, e:
-        print
         sys.exit()
 
 
