@@ -45,10 +45,8 @@ def save_images(dire=None):
     ima_list = []
     for ima in client.images.list():
         ima_list += ima.attrs.get("RepoTags")
-    print ima_list
     for im in ima_list:
         tar_name = im.encode("utf-8").split("/")[-1].split(":")[0]
-        print im, dire, tar_name
         cmd = "docker save %s > %s%s.tar" % (im, dire, tar_name)
         print "---------------------------"
         print cmd
@@ -82,6 +80,11 @@ def delete_images():
 
 
 if __name__ == '__main__':
+    '''
+    to save images: ./image_auto.py save [dire]
+    to load images: ./image_auto.py load [dire]
+    to delete images: ./image_auto.py selete 
+    '''
     try:
         if sys.argv[1] == "save":
             try:
@@ -90,7 +93,6 @@ if __name__ == '__main__':
                 print "save in the current file"
                 save_images()
     except IndexError, e:
-        print "please retry by : ./image_auto save [dire]"
         sys.exit()
     try:
         if sys.argv[1] == "load":
@@ -99,7 +101,6 @@ if __name__ == '__main__':
             except IndexError, e:
                 load_images()
     except IndexError, e:
-        print "please retry by : ./image_auto load [dire]"
         sys.exit()
     try:
         if sys.argv[1] == "delete":
