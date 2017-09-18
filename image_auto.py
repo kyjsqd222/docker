@@ -84,7 +84,7 @@ if __name__ == '__main__':
     '''
     to save images: ./image_auto.py save [dire]
     to load images: ./image_auto.py load [dire]
-    to delete images: ./image_auto.py selete 
+    to delete images: ./image_auto.py delete 
     '''
     try:
         if sys.argv[1] == "save":
