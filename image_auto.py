@@ -66,6 +66,8 @@ def load_images(dire=None):
         dire += "/"
     tar_list = os.listdir(dire)
     for im in tar_list:
+        if not im.endswith(".tar"):
+            continue
         im = dire+im
         print im
         with open(im) as f:
