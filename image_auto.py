@@ -102,9 +102,8 @@ if __name__ == '__main__':
     try:
         if sys.argv[1] == "delete":
             delete_images()
-        else:
-            print "options not suported"
-            sys.exit()
+        if sys.argv[1] not in ["save", "load", "delete"]:
+            print "options not supported yet!"
     except IndexError, e:
         print "options not supplied!"
         sys.exit()
