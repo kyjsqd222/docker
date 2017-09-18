@@ -34,7 +34,7 @@ client = docker.DockerClient(base_url='unix://var/run/docker.sock', version='aut
 
 def save_images(dire=None):
     if not dire:
-        dire = "/home/my_images/"
+        dire = "./"
     else:
         if not dire.endswith("/"):
             dire = dire+"/"
@@ -66,7 +66,7 @@ def load_images(dire=None):
         dire += "/"
     tar_list = os.listdir(dire)
     for im in tar_list:
-        im=dire+im
+        im = dire+im
         print im
         with open(im) as f:
             client.images.load(f)
