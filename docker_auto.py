@@ -10,6 +10,7 @@ import sys
 
 
 client = docker.DockerClient(base_url='unix://var/run/docker.sock', version='auto', timeout=10)
+options_list = ["save", "delete", "load", "prune", "remove"]
 
 
 # save all docker images on the server
@@ -41,7 +42,7 @@ def save_images(dire=None):
             dire = dire+"/"
         try:
             os.makedirs(dire)
-        except OSError, e:
+        except OSError:
             pass
     ima_list = []
     for ima in client.images.list():
@@ -80,6 +81,18 @@ def delete_images():
         client.images.remove(ima_id)
 
 
+# delete all stopped containers
+def prune_containers():
+    res = client.containers.prune()
+    print res
+    print type(res)
+
+
+# delete all containers
+def remove_containers():
+    res = client.containers
+
+
 if __name__ == '__main__':
     '''
     to save images: ./image_auto.py save [dire]
@@ -87,29 +100,34 @@ if __name__ == '__main__':
     to delete images: ./image_auto.py delete 
     '''
     try:
-        if sys.argv[1] == "save":
-            try:
-                save_images(sys.argv[2])
-            except IndexError, e:
-                print "save in the current file"
-                save_images()
-    except IndexError, e:
-        sys.exit()
-    try:
-        if sys.argv[1] == "load":
-            try:
-                load_images(sys.argv[2])
-            except IndexError, e:
-                load_images()
-    except IndexError, e:
-        sys.exit()
-    try:
-        if sys.argv[1] == "delete":
-            delete_images()
-        if sys.argv[1] not in ["save", "load", "delete"]:
-            print "options not supported yet!"
-    except IndexError, e:
-        print "options not supplied!"
+        action = sys.argv[1]
+        if action not in options_list:
+            print "unsupported action!"
+            sys.exit()
+        else:
+            if action == "save":
+                try:
+                    di = sys.argv[2]
+                    save_images(dire=di)
+                except IndexError:
+                    save_images()
+            elif action == "delete":
+                delete_images()
+            elif action == "load":
+                try:
+                    di = sys.argv[2]
+                    load_images(di)
+                except IndexError:
+                    load_images()
+            elif action == "prune":
+                prune_containers()
+            elif action == "remove":
+                print "dangerous action!"
+                pass
+            else:
+                print "waiting to add!"
+    except IndexError:
+        print "no action provided!"
         sys.exit()
 
 
