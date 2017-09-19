@@ -83,14 +83,14 @@ def delete_images():
 
 # delete all stopped containers
 def prune_containers():
-    res = client.containers.prune()
-    print res
-    print type(res)
+    client.containers.prune()
 
 
 # delete all containers
 def remove_containers():
-    res = client.containers
+    all_containers = client.containers.list(all=True)
+    for c in all_containers:
+        print c
 
 
 if __name__ == '__main__':
@@ -123,6 +123,7 @@ if __name__ == '__main__':
                 prune_containers()
             elif action == "remove":
                 print "dangerous action!"
+                remove_containers()
                 pass
             else:
                 print "waiting to add!"
