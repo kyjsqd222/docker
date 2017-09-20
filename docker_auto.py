@@ -81,6 +81,7 @@ def delete_images():
         ima_id = ima.short_id.encode('utf-8').split(':')[-1]
         try:
             client.images.remove(ima_id)
+            print ima_id
         except errors.APIError, e:
             continue
 
