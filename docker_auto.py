@@ -7,6 +7,7 @@ import docker
 import os
 import subprocess
 import sys
+from docker import errors
 
 
 client = docker.DockerClient(base_url='unix://var/run/docker.sock', version='auto', timeout=10)
@@ -78,7 +79,10 @@ def load_images(dire=None):
 def delete_images():
     for ima in client.images.list():
         ima_id = ima.short_id.encode('utf-8').split(':')[-1]
-        client.images.remove(ima_id)
+        try:
+            client.images.remove(ima_id)
+        except errors.APIError, e:
+            continue
 
 
 # delete all stopped containers
